@@ -228,6 +228,22 @@ In simple words, polymorphism is the ability of an object to take many forms.
 -   Depends upon number and type of arguments.
 -   Does not depends on return type of the method.
 -   Example of Compile Time Polymorphism.
+-   Ex:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void add(int a, int b)
+{
+  cout << "sum = " << (a + b);
+}
+
+void add(double a, double b)
+{
+    cout << "fraction sum = " << (a + b);
+}
+```
 
 #### Method Overriding
 
@@ -235,10 +251,103 @@ In simple words, polymorphism is the ability of an object to take many forms.
 -   Used to provide specific implementation of the method which is already provided by its Super Class.
 -   Example of Run Time Polymorphism.
 
+```cpp
+// C++ Program to illustrate how to implement runtime
+// function overriding using virtual function
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    // Declare the function as virtual to allow overriding
+    // in derived classes
+    virtual void display()
+    {
+        cout << "Display method of Base class" << endl;
+    }
+
+    // Virtual destructor to ensure proper cleanup of
+    // derived class objects
+    virtual ~Base() {}
+};
+
+class Derived : public Base {
+public:
+    // Override the display method
+    void display() override
+    {
+        cout << "Display method of Derived class" << endl;
+    }
+};
+
+int main()
+{
+    Base* basePtr;
+    Derived derivedObj;
+
+    // Point base class pointer to derived class object
+    basePtr = &derivedObj;
+
+    // Call the display function
+    // This will call the display method of the Derived
+    // class due to the virtual function mechanism
+    basePtr->display();
+
+    return 0;
+}
+```
+
+```
+Output:
+Display method of Derived class
+```
+
 #### Operator Overloading
 
 -   Operator is overloaded to provide the special meaning of user-defined data type.
 -   Example of Compile Time Polymorphism.
+
+```cpp
+// C++ Program to Demonstrate
+// Operator Overloading
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    int real, imag;
+
+public:
+    Complex(int r = 0, int i = 0)
+    {
+        real = r;
+        imag = i;
+    }
+
+    // This is automatically called when '+' is used with
+    // between two Complex objects
+    Complex operator+(Complex const& obj)
+    {
+        Complex res;
+        res.real = real + obj.real;
+        res.imag = imag + obj.imag;
+        return res;
+    }
+    void print() { cout << real << " + i" << imag << '\n'; }
+};
+
+int main()
+{
+    Complex c1(10, 5), c2(2, 4);
+    Complex c3 = c1 + c2;
+    c3.print();
+}
+```
+
+```
+Output:
+12 + i9
+```
 
 ## Inheritance
 
@@ -316,7 +425,7 @@ Reduces development and maintenance cost of code.
 
 #### _Java and Multiple Inheritance_
 
--   Ambiguity around the diamond problem.
+-   Ambiguity around the [diamond problem](https://www.youtube.com/watch?v=mEF_vVNTPUY).
 
 -   Complicates the design and creates problem during casting, constructor chaining, etc.
 
